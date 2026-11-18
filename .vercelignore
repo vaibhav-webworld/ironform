@@ -1,0 +1,10 @@
+.openai
+.git
+.vercel
+tests
+artifacts
+README.md
+server.mjs
+node_modules
+*.log
+.env*

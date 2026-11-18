@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#171819"><meta name="description" content="Build strength. Build consistency. Track your gym and running streaks with IRONFORM."><title>IRONFORM — Built by showing up.</title><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='8' fill='%23171819'/%3E%3Cpath d='M8 10h7v20H8zM19 10h14v5h-9v4h7v5h-7v6h-5z' fill='%23e1e5e9'/%3E%3C/svg%3E"><link rel="stylesheet" href="/style.css"></head>
+<body>
+<aside class="sidebar"><a class="brand" href="#today"><span class="brand-icon" data-icon="ironform"></span><span>IRONFORM</span></a><div class="side-caption">BUILT BY SHOWING UP</div><nav aria-label="Main navigation"><a href="#today" data-page="today"><span data-icon="grid"></span>Today</a><a href="#progress" data-page="progress"><span data-icon="chart"></span>Progress</a><a href="#garden" data-page="garden"><span data-icon="sprout"></span>Growth</a></nav><div class="sidebar-bottom"><div class="small-sprout" data-icon="gym"></div><p>Earn your<br>next level.</p><button class="settings-button" id="backup-open"><span data-icon="settings"></span>Data & backups</button><div class="local-label"><i></i> Saved on this device</div></div></aside>
+<main><header class="topbar"><a class="mobile-brand" href="#today" aria-label="IRONFORM home"><span data-icon="ironform"></span>IRONFORM</a><span class="eyebrow" id="page-label">YOUR DAILY CHECK-IN</span><div class="header-actions"><span id="header-date"></span><button type="button" class="icon-button wallpaper-header" data-wallpaper-open aria-label="Wallpaper and Shortcut" title="Wallpaper and Shortcut"><span data-icon="phone"></span></button><button class="mobile-settings icon-button" id="mobile-backup" aria-label="Data and backups"><span data-icon="settings"></span></button></div></header><nav class="mobile-tabs" aria-label="Switch view"><a href="#today" data-page="today"><span data-icon="grid"></span>Today</a><a href="#progress" data-page="progress"><span data-icon="chart"></span>Progress</a><a href="#garden" data-page="garden"><span data-icon="sprout"></span>Growth</a></nav><div id="view"></div><footer>SHOW UP. BUILD YOURSELF. <span>Your effort. Your standard.</span></footer></main>
+
+<dialog id="workout-dialog" aria-labelledby="workout-title">
+  <form id="workout-form">
+    <div class="dialog-head">
+      <div><span class="eyebrow" id="workout-kicker">YOUR MOVEMENT</span><h2 id="workout-title">Workout details</h2></div>
+      <button type="button" class="icon-button close-dialog" aria-label="Close">×</button>
+    </div>
+    <p id="day-summary" class="day-summary"></p>
+    <div id="day-activities" class="day-activities"></div>
+    <p id="form-message" class="recovery-info" role="status" hidden></p>
+    <div id="workout-fields">
+      <p id="recovery-info" class="recovery-info" hidden></p>
+      <details id="workout-picker" class="workout-picker" open>
+        <summary id="change-workout-label">Change workout</summary>
+        <fieldset id="gym-details" class="gym-details" hidden disabled>
+        <legend>What did you train?</legend>
+        <div id="workout-choices" class="workout-choices"></div>
+        <details id="more-workouts" class="more-workouts">
+          <summary>More workouts</summary>
+          <div id="other-workout-choices" class="workout-choices"></div>
+        </details>
+        <p id="pair-preview" class="pair-preview" aria-live="polite" hidden></p>
+        </fieldset>
+      </details>
+      <div id="saved-details" class="saved-details" hidden></div>
+      <details id="extra-details" class="extra-details">
+        <summary id="extra-details-label">Add details</summary>
+        <div class="details-body">
+          <fieldset id="exercise-details" class="gym-details" hidden disabled>
+            <legend>Exercises <span>optional</span></legend>
+            <div id="workout-suggestion" class="workout-suggestion" hidden>
+              <p id="suggestion-label">Suggested pair</p>
+              <button type="button" id="use-workout-pair">Use pair</button>
+            </div>
+            <div class="exercise-fields">
+              <label>Exercise 1<input id="exercise-first" type="text" placeholder="Exercise name" autocomplete="off"></label>
+              <label>Exercise 2<input id="exercise-second" type="text" placeholder="Exercise name" autocomplete="off"></label>
+            </div>
+          </fieldset>
+          <div class="field-row"><label>Duration<div class="input-unit"><input id="duration" type="number" min="0" max="1440" step="1" inputmode="numeric" placeholder="0"><span>min</span></div></label><label id="distance-label">Distance<div class="input-unit"><input id="distance" type="number" min="0" max="1000" step="0.01" inputmode="decimal" placeholder="0"><span>km</span></div></label></div>
+          <label>A note to yourself<textarea id="note" maxlength="500" placeholder="How did it feel?" rows="2"></textarea></label>
+        </div>
+      </details>
+      <div class="dialog-actions day-actions"><button type="submit" id="save-workout" class="primary">Log gym</button><button type="button" id="delete-workout" class="day-delete danger">Delete entry</button></div>
+    </div>
+  </form>
+</dialog>
+<dialog id="backup-dialog" aria-labelledby="backup-title"><div class="dialog-head"><div><span class="eyebrow">KEEP YOUR PROGRESS CLOSE</span><h2 id="backup-title">Data & backups</h2></div><button class="icon-button close-dialog" aria-label="Close">×</button></div><p class="muted">Your history lives in this browser on this device. Phone and laptop histories are separate. Export a backup before clearing browser data or moving devices.</p><button class="backup-action" id="export"><span data-icon="download"></span><span><strong>Export your history</strong><small>Download an IRONFORM JSON backup</small></span><span>↗</span></button><button class="backup-action" id="import-open" type="button"><span data-icon="upload"></span><span><strong>Import a backup</strong><small>Preview before replacing your history</small></span><span>↗</span></button><input type="file" id="import" accept=".json,application/json" hidden><div id="import-preview" hidden></div></dialog>
+<div id="undo-bar" hidden><span id="undo-message" role="status" aria-live="polite"></span><button id="undo-remove" type="button">Undo</button><button id="dismiss-undo" type="button" aria-label="Dismiss undo" title="Dismiss undo">×</button></div><div id="toast" role="status" aria-live="polite"></div><div id="persistent-error" role="alert" hidden></div>
+<script type="module" src="/app.js"></script></body></html>
